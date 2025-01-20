@@ -1,0 +1,29 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: bookstore-api-gateway
+  cloud:
+    gateway:
+          routes:
+            - id: bookstore-catalog-service
+              uri: lb://bookstore-catalog-service
+              predicates:
+                - Path=/catalog/**
+              filters:
+                - StripPrefix=1
+            - id: bookstore-order-service
+              uri: lb://bookstore-order-service
+              predicates:
+                - Path=/order/**
+              filters:
+                - StripPrefix=1
+
+eureka:
+  client:
+    service-url:
+        defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${random.value}
