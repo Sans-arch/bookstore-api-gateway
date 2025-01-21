@@ -10,13 +10,13 @@ spring:
             - id: bookstore-catalog-service
               uri: lb://bookstore-catalog-service
               predicates:
-                - Path=/catalog/**
+                - Path=/catalog-service/**
               filters:
                 - StripPrefix=1
             - id: bookstore-order-service
               uri: lb://bookstore-order-service
               predicates:
-                - Path=/order/**
+                - Path=/order-service/**
               filters:
                 - StripPrefix=1
 
